@@ -23,6 +23,11 @@ body {
     box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
     cursor: pointer;
 }
+#text{
+    color: white;
+    font-size: 20px;
+}
+
 .heart {
     font-size: 60px;
     transition: 0.3s;
@@ -47,7 +52,7 @@ body {
 <body>
 <div class="box" onclick="openCake()">
     <div class="heart">🤍</div>
-    <p>Click to open my birthday gift</p>
+    <p id="text">Click to open my birthday gift</p>
 </div>
 
 <script>
@@ -69,6 +74,7 @@ setInterval(floatHearts, 250);
 
 </body>
 </html>
+
 
 
 
