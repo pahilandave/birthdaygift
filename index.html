@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Special Surprise</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(#ffe3f3, #ffd2d2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+    }
+    .container {
+        background: white;
+        padding: 30px;
+        width: 300px;
+        text-align: center;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .lock {
+        font-size: 50px;
+        color: #ff4d8a;
+    }
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        background-color: #ff4d8a;
+        color: white;
+        font-size: 16px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    button:disabled {
+        background-color: #b8b8b8;
+        cursor: not-allowed;
+    }
+    .footer { margin-top: 10px; font-size: 12px; color: #777; }
+
+    /* Floating animation */
+    .float {
+        position: fixed;
+        bottom: -50px;
+        animation: floatUp 6s linear forwards;
+        pointer-events: none;
+        z-index: -1;
+    }
+    @keyframes floatUp {
+        0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(-120vh) scale(1.6) rotate(360deg); opacity: 0; }
+    }
+</style>
+</head>
+
+<body>
+<div class="container">
+    <div class="lock">🔒</div>
+    <h2>Special Surprise</h2>
+    <p>You must wait until:</p>
+    <h3>🎂 October 31, 2025 🎂</h3>
+
+    <p id="countdown" style="font-weight:bold;color:#ff4d8a;"></p>
+    <button id="unlockBtn" disabled onclick="openGift()">Unlock My Gift 🎁</button>
+
+    <p class="footer">Made with ❤️ just for you</p>
+</div>
+
+<script>
+const unlockDate = new Date("October 31, 2025").getTime();
+const countdownEl = document.getElementById("countdown");
+const unlockBtn = document.getElementById("unlockBtn");
+
+const timer = setInterval(() => {
+    const now = new Date().getTime();
+    const diff = unlockDate - now;
+
+    if (diff <= 0) {
+        clearInterval(timer);
+        countdownEl.textContent = "It's time! 💖";
+        unlockBtn.disabled = false;
+    } else {
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000*60*60*24))/(1000*60*60));
+        const m = Math.floor((diff % (1000*60*60))/(1000*60));
+        const s = Math.floor((diff % (1000*60))/1000);
+        countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
+    }
+}, 1000);
+
+function openGift() { window.location.href = "surprise.html"; }
+
+// ----- Floating hearts + sakura + flowers ------
+function spawnFloating(emoji) {
+    let el = document.createElement("div");
+    el.classList.add("float");
+    el.innerHTML = emoji;
+    el.style.left = Math.random()*window.innerWidth+"px";
+    el.style.fontSize = (20 + Math.random()*25) + "px";
+    document.body.appendChild(el);
+    setTimeout(()=> el.remove(), 6000);
+}
+
+// hearts
+setInterval(()=> spawnFloating("❤️"), 600);
+
+// sakura
+const sakura = ["🌸","💮","🌺"];
+setInterval(()=> spawnFloating(sakura[Math.floor(Math.random()*sakura.length)]), 800);
+
+// flowers
+const flowers = ["🌼","🌷","🌻","🌹"];
+setInterval(()=> spawnFloating(flowers[Math.floor(Math.random()*flowers.length)]), 1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Love Letter</title>
+
+<style>
+body {
+    background: #7DFF7A;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial;
+    margin: 0;
+    overflow: hidden;
+}
+.box {
+    padding: 30px;
+    background: white;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+.heart {
+    font-size: 60px;
+    transition: 0.3s;
+}
+.heart:hover { transform: scale(1.2); }
+
+/* floating hearts */
+.float-heart {
+    position: fixed;
+    bottom: -40px;
+    animation: rise 5s linear forwards;
+    pointer-events: none;
+    z-index: -1;
+}
+@keyframes rise {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-120vh) scale(1.8); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+<div class="box" onclick="openCake()">
+    <div class="heart">❤️</div>
+    <p>Click to open my love letter</p>
+</div>
+
+<script>
+function openCake() { window.location.href = "cake.html"; }
+
+// multi-color hearts
+const colors = ["❤️","🤍","💜","🖤","💗","💙","💛","🧡","💚"];
+function floatHearts() {
+    let h = document.createElement("div");
+    h.classList.add("float-heart");
+    h.innerHTML = colors[Math.floor(Math.random()*colors.length)];
+    h.style.left = Math.random()*window.innerWidth+"px";
+    h.style.fontSize = (20 + Math.random()*25) + "px";
+    document.body.appendChild(h);
+    setTimeout(()=> h.remove(), 6000);
+}
+setInterval(floatHearts, 250);
+</script>
+
+</body>
+</html>
